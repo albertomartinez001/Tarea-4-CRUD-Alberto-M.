@@ -14,20 +14,20 @@ def alumno_list(request):
 
 def curso_list(request):
     cursos = Curso.objects.all()
-    return render(request, 'curso/list.html', {'cursos': cursos})
+    return render(request, 'alumno/cursos.html', {'cursos': cursos})
 
 def nota_list(request):
     notas = Notas.objects.all()
-    return render(request, 'nota/list.html', {'notas': notas})
+    return render(request, 'alumno/calificaciones.html', {'notas': notas})
 
 def catedratico_list(request):
     catedraticos = Catedratico.objects.all()
-    return render(request, 'catedratico/list.html', {'catedraticos': catedraticos})
+    return render(request, 'alumno/catedraticos.html', {'catedraticos': catedraticos})
 
 def asignacion_list(request):
     asignaciones = AsignacionCurso.objects.all()
-    return render(request, 'asignacion/list.html', {'asignaciones': asignaciones})
+    return render(request, 'alumno/asignaciones.html', {'asignaciones': asignaciones})
 
 def inscripcion_list(request):
     inscripciones = InscripcionAlumno.objects.all()
-    return render(request, 'inscripcion/list.html', {'inscripciones': inscripciones})
+    return render(request, 'alumno/inscripciones.html', {'inscripciones': inscripciones})
