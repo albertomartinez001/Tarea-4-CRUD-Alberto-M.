@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h2>Editar Alumno</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6">
+<label>Nombre</label>
+<input type="text" name="first_name" value="{{ alumno.first_name }}" class="form-control">
+</div>
+
+<div class="col-md-6">
+<label>Apellido</label>
+<input type="text" name="last_name" value="{{ alumno.last_name }}" class="form-control">
+</div>
+
+<div class="col-md-6 mt-3">
+<label>Email</label>
+<input type="email" name="email" value="{{ alumno.email }}" class="form-control">
+</div>
+
+<div class="col-md-6 mt-3">
+<label>Teléfono</label>
+<input type="text" name="phone" value="{{ alumno.phone }}" class="form-control">
+</div>
+
+<div class="col-md-6 mt-3">
+<label>Género</label>
+<select name="gender" class="form-control">
+
+<option value="M" {% if alumno.gender == "M" %}selected{% endif %}>
+Masculino
+</option>
+
+<option value="F" {% if alumno.gender == "F" %}selected{% endif %}>
+Femenino
+</option>
+
+</select>
+</div>
+
+<div class="col-md-6 mt-3">
+<label>Fecha de nacimiento</label>
+<input type="date" name="birth_date" value="{{ alumno.birth_date|date:'Y-m-d' }}" class="form-control">
+</div>
+
+<div class="col-md-6 mt-3">
+
+<label>
+<input type="checkbox" name="is_active"
+{% if alumno.is_active %}checked{% endif %}>
+Activo
+</label>
+
+</div>
+
+</div>
+
+<div class="mt-4">
+
+<button class="btn btn-warning">
+Actualizar
+</button>
+
+<a href="{% url 'alumno:list' %}" class="btn btn-secondary">
+Cancelar
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -4,6 +4,16 @@ from . import views
 app_name = 'alumno'
 
 urlpatterns = [
+    
+    path('', views.alumno_list, name='list'),
+
+    path('nuevo/', views.alumno_create, name='create'),
+
+    path('editar/<int:id>/', views.alumno_update, name='update'),
+
+    path('eliminar/<int:id>/', views.alumno_delete, name='delete'),
+
+    
     path('', views.alumno_list, name='list'),
     path('cursos/', views.curso_list, name='cursos'),
     path('notas/', views.nota_list, name='calificaciones'),

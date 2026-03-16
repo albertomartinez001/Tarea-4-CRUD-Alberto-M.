@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<div class="d-flex justify-content-between mb-3">
+
+<h2>Lista de Alumnos</h2>
+
+<a href="{% url 'alumno:create' %}" class="btn btn-primary">
+Nuevo Alumno
+</a>
+
+</div>
+
+<table class="table table-bordered">
+
+<thead>
+
+<tr>
+<th>Nombre</th>
+<th>Email</th>
+<th>Teléfono</th>
+<th>Estado</th>
+<th>Acciones</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for alumno in alumnos %}
+
+<tr>
+
+<td>
+{{ alumno.first_name }} {{ alumno.last_name }}
+</td>
+
+<td>
+{{ alumno.email }}
+</td>
+
+<td>
+{{ alumno.phone }}
+</td>
+
+<td>
+
+{% if alumno.is_active %}
+<span class="badge bg-success">Activo</span>
+{% else %}
+<span class="badge bg-danger">Inactivo</span>
+{% endif %}
+
+</td>
+
+<td>
+
+<a href="{% url 'alumno:update' alumno.id %}" class="btn btn-warning btn-sm">
+Editar
+</a>
+
+<a href="{% url 'alumno:delete' alumno.id %}" class="btn btn-danger btn-sm">
+Eliminar
+</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="5">No hay alumnos registrados</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}
