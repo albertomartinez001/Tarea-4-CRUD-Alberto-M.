@@ -107,7 +107,65 @@ def curso_delete(request, id):
 
 def nota_list(request):
     notas = Notas.objects.all()
-    return render(request, 'alumno/calificaciones.html', {'notas': notas})
+    return render(request, 'alumno/notas/list.html', {'notas': notas})
+
+def nota_create(request):
+
+    alumnos = Alumno.objects.all()
+    asignaciones = AsignacionCurso.objects.all()
+
+    if request.method == "POST":
+
+        Notas.objects.create(
+            alumno_id=request.POST['alumno'],
+            asignacion_id=request.POST['asignacion'],
+            nota=request.POST['nota']
+        )
+
+        return redirect('alumno:calificaciones')
+
+    return render(request, 'alumno/notas/create.html', {
+        'alumnos': alumnos,
+        'asignaciones': asignaciones
+    })
+
+
+def nota_delete(request, id):
+
+    nota = get_object_or_404(Notas, id=id)
+
+    if request.method == "POST":
+
+        nota.delete()
+
+        return redirect('alumno:calificaciones')
+
+    return render(request, 'alumno/notas/delete.html', {'nota': nota})
+
+
+def nota_update(request, id):
+
+    nota = get_object_or_404(Notas, id=id)
+
+    alumnos = Alumno.objects.all()
+    asignaciones = AsignacionCurso.objects.all()
+
+    if request.method == "POST":
+
+        nota.alumno_id = request.POST['alumno']
+        nota.asignacion_id = request.POST['asignacion']
+        nota.nota = request.POST['nota']
+
+        nota.save()
+
+        return redirect('alumno:calificaciones')
+
+    return render(request, 'alumno/notas/update.html', {
+        'nota': nota,
+        'alumnos': alumnos,
+        'asignaciones': asignaciones
+    })
+
 
 def catedratico_list(request):
     catedraticos = Catedratico.objects.all()
