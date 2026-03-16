@@ -61,7 +61,49 @@ def alumno_delete(request, id):
 
 def curso_list(request):
     cursos = Curso.objects.all()
-    return render(request, 'alumno/cursos.html', {'cursos': cursos})
+    return render(request, 'alumno/cursos/list.html', {'cursos': cursos})
+
+def curso_create(request):
+
+    if request.method == "POST":
+
+        Curso.objects.create(
+            nombre=request.POST['nombre'],
+            descripcion=request.POST['descripcion']
+        )
+
+        return redirect('alumno:cursos')
+
+    return render(request, 'alumno/cursos/create.html')
+
+def curso_update(request, id):
+
+    curso = get_object_or_404(Curso, id=id)
+
+    if request.method == "POST":
+
+        curso.nombre = request.POST['nombre']
+        curso.descripcion = request.POST['descripcion']
+
+        curso.save()
+
+        return redirect('alumno:cursos')
+
+    return render(request, 'alumno/cursos/update.html', {'curso': curso})
+
+
+def curso_delete(request, id):
+
+    curso = get_object_or_404(Curso, id=id)
+
+    if request.method == "POST":
+
+        curso.delete()
+
+        return redirect('alumno:cursos')
+
+    return render(request, 'alumno/cursos/delete.html', {'curso': curso})
+
 
 def nota_list(request):
     notas = Notas.objects.all()
