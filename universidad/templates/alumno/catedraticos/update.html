@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h2>Editar Catedrático</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+
+<label>Nombre</label>
+
+<input type="text" name="nombre" value="{{ catedratico.nombre }}" class="form-control">
+
+</div>
+
+<div class="mb-3">
+
+<label>Email</label>
+
+<input type="email" name="email" value="{{ catedratico.email }}" class="form-control">
+
+</div>
+
+<button class="btn btn-warning">
+Actualizar
+</button>
+
+<a href="{% url 'alumno:catedraticos' %}" class="btn btn-secondary">
+Cancelar
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

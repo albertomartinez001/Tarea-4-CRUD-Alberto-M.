@@ -18,6 +18,13 @@ urlpatterns = [
     path('cursos/editar/<int:id>/', views.curso_update, name='curso_update'),
 
     path('cursos/eliminar/<int:id>/', views.curso_delete, name='curso_delete'),
+    
+    path('catedraticos/nuevo/', views.catedratico_create, name='catedratico_create'),
+
+    path('catedraticos/editar/<int:id>/', views.catedratico_update, name='catedratico_update'),
+
+    path('catedraticos/eliminar/<int:id>/', views.catedratico_delete, name='catedratico_delete'),
+
 
     path('', views.alumno_list, name='list'),
     path('cursos/', views.curso_list, name='cursos'),

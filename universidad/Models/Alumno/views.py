@@ -111,7 +111,51 @@ def nota_list(request):
 
 def catedratico_list(request):
     catedraticos = Catedratico.objects.all()
-    return render(request, 'alumno/catedraticos.html', {'catedraticos': catedraticos})
+    return render(request, 'alumno/catedraticos/list.html', {'catedraticos': catedraticos})
+
+def catedratico_create(request):
+
+    if request.method == "POST":
+
+        Catedratico.objects.create(
+            nombre=request.POST['nombre'],
+            email=request.POST['email']
+        )
+
+        return redirect('alumno:catedraticos')
+
+    return render(request, 'alumno/catedraticos/create.html')
+
+def catedratico_update(request, id):
+
+    catedratico = get_object_or_404(Catedratico, id=id)
+
+    if request.method == "POST":
+
+        catedratico.nombre = request.POST['nombre']
+        catedratico.email = request.POST['email']
+
+        catedratico.save()
+
+        return redirect('alumno:catedraticos')
+
+    return render(request, 'alumno/catedraticos/update.html', {'catedratico': catedratico})
+
+
+
+def catedratico_delete(request, id):
+
+    catedratico = get_object_or_404(Catedratico, id=id)
+
+    if request.method == "POST":
+
+        catedratico.delete()
+
+        return redirect('alumno:catedraticos')
+
+    return render(request, 'alumno/catedraticos/delete.html', {'catedratico': catedratico})
+
+
 
 def asignacion_list(request):
     asignaciones = AsignacionCurso.objects.all()
