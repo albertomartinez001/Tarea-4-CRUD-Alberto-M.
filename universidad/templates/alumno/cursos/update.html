@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h2>Editar Curso</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+
+<label>Nombre</label>
+
+<input type="text" name="nombre" value="{{ curso.nombre }}" class="form-control">
+
+</div>
+
+<div class="mb-3">
+
+<label>Descripción</label>
+
+<textarea name="descripcion" class="form-control">{{ curso.descripcion }}</textarea>
+
+</div>
+
+<button class="btn btn-warning">
+Actualizar
+</button>
+
+<a href="{% url 'alumno:cursos' %}" class="btn btn-secondary">
+Cancelar
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}
