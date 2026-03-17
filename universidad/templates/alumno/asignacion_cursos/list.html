@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<div class="d-flex justify-content-between mb-3">
+
+<h2>Asignación de Cursos</h2>
+
+<a href="{% url 'alumno:asignacion_create' %}" class="btn btn-primary">
+Nueva Asignación
+</a>
+
+</div>
+
+<table class="table table-bordered">
+
+<thead>
+<tr>
+<th>Curso</th>
+<th>Catedrático</th>
+<th>Horario</th>
+<th>Acciones</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for asignacion in asignaciones %}
+
+<tr>
+
+<td>{{ asignacion.curso }}</td>
+
+<td>{{ asignacion.catedratico }}</td>
+
+<td>{{ asignacion.horario }}</td>
+
+<td>
+
+<a href="{% url 'alumno:asignacion_update' asignacion.id %}" class="btn btn-warning btn-sm">
+Editar
+</a>
+
+<a href="{% url 'alumno:asignacion_delete' asignacion.id %}" class="btn btn-danger btn-sm">
+Eliminar
+</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="4">No hay asignaciones registradas</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

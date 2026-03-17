@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h2>Editar Asignación</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+
+<label>Curso</label>
+
+<select name="curso" class="form-control">
+
+{% for curso in cursos %}
+<option value="{{ curso.id }}" {% if curso.id == asignacion.curso.id %}selected{% endif %}>
+{{ curso.nombre }}
+</option>
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label>Catedrático</label>
+
+<select name="catedratico" class="form-control">
+
+{% for catedratico in catedraticos %}
+<option value="{{ catedratico.id }}" {% if catedratico.id == asignacion.catedratico.id %}selected{% endif %}>
+{{ catedratico.nombre }}
+</option>
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label>Horario</label>
+
+<input type="text" name="horario" value="{{ asignacion.horario }}" class="form-control">
+
+</div>
+
+<button class="btn btn-primary">
+Guardar
+</button>
+
+<a href="{% url 'alumno:asignaciones' %}" class="btn btn-secondary">
+Cancelar
+</a>
+
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -213,11 +213,68 @@ def catedratico_delete(request, id):
 
     return render(request, 'alumno/catedraticos/delete.html', {'catedratico': catedratico})
 
-
-
 def asignacion_list(request):
     asignaciones = AsignacionCurso.objects.all()
-    return render(request, 'alumno/asignaciones.html', {'asignaciones': asignaciones})
+    return render(request, 'alumno/asignacion_cursos/list.html', {
+        'asignaciones': asignaciones
+    })
+    
+def asignacion_create(request):
+
+    cursos = Curso.objects.all()
+    catedraticos = Catedratico.objects.all()
+
+    if request.method == "POST":
+
+        AsignacionCurso.objects.create(
+            curso_id=request.POST['curso'],
+            catedratico_id=request.POST['catedratico'],
+            horario=request.POST['horario']
+        )
+
+        return redirect('alumno:asignaciones')
+
+    return render(request, 'alumno/asignacion_cursos/create.html', {
+        'cursos': cursos,
+        'catedraticos': catedraticos
+    })
+
+def asignacion_update(request, id):
+
+    asignacion = get_object_or_404(AsignacionCurso, id=id)
+
+    cursos = Curso.objects.all()
+    catedraticos = Catedratico.objects.all()
+
+    if request.method == "POST":
+
+        asignacion.curso_id = request.POST['curso']
+        asignacion.catedratico_id = request.POST['catedratico']
+        asignacion.horario = request.POST['horario']
+
+        asignacion.save()
+
+        return redirect('alumno:asignaciones')
+
+    return render(request, 'alumno/asignacion_cursos/update.html', {
+        'asignacion': asignacion,
+        'cursos': cursos,
+        'catedraticos': catedraticos
+    })
+
+def asignacion_delete(request, id):
+
+    asignacion = get_object_or_404(AsignacionCurso, id=id)
+
+    if request.method == "POST":
+
+        asignacion.delete()
+
+        return redirect('alumno:asignaciones')
+
+    return render(request, 'alumno/asignacion_cursos/delete.html', {
+        'asignacion': asignacion
+    })
 
 def inscripcion_list(request):
     inscripciones = InscripcionAlumno.objects.all()

@@ -29,12 +29,20 @@ urlpatterns = [
     path('notas/editar/<int:id>/', views.nota_update, name='nota_update'),
 
     path('notas/eliminar/<int:id>/', views.nota_delete, name='nota_delete'),
+    
+    path('asignacion_cursos/', views.asignacion_list, name='asignaciones'),
+
+path('asignacion_cursos/nuevo/', views.asignacion_create, name='asignacion_create'),
+
+path('asignacion_cursos/editar/<int:id>/', views.asignacion_update, name='asignacion_update'),
+
+path('asignacion_cursos/eliminar/<int:id>/', views.asignacion_delete, name='asignacion_delete'),
 
 
     path('', views.alumno_list, name='list'),
     path('cursos/', views.curso_list, name='cursos'),
     path('notas/', views.nota_list, name='calificaciones'),
     path('catedraticos/', views.catedratico_list, name='catedraticos'),
-    path('asignaciones/', views.asignacion_list, name='asignaciones'),
+    path('asignacion_cursos/', views.asignacion_list, name='asignaciones'),
     path('inscripciones/', views.inscripcion_list, name='inscripciones'),
 ]

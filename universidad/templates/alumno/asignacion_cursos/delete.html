@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h2>Eliminar Asignación</h2>
+
+<div class="alert alert-danger">
+
+¿Seguro que deseas eliminar la asignación de:
+
+<strong>{{ asignacion.curso }}</strong> con  
+<strong>{{ asignacion.catedratico }}</strong>?
+
+</div>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<button class="btn btn-primary">
+Guardar
+</button>
+
+<a href="{% url 'alumno:asignaciones' %}" class="btn btn-secondary">
+Cancelar
+</a>
+
+
+</form>
+
+</div>
+
+{% endblock %}
