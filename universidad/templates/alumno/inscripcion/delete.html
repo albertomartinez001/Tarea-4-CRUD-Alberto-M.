@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h2>Eliminar Inscripción</h2>
+
+<p>
+¿Seguro que deseas eliminar la inscripción de 
+<strong>{{ inscripcion.alumno }}</strong> en 
+<strong>{{ inscripcion.curso }}</strong>?
+</p>
+
+<form method="POST">
+{% csrf_token %}
+
+<button class="btn btn-danger">Eliminar</button>
+
+<a href="{% url 'alumno:inscripciones' %}" class="btn btn-secondary">
+Cancelar
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h2>Nueva Inscripción</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="mb-3">
+<label>Alumno</label>
+<select name="alumno" class="form-control">
+{% for alumno in alumnos %}
+<option value="{{ alumno.id }}">{{ alumno.first_name }} {{ alumno.last_name }}</option>
+{% endfor %}
+</select>
+</div>
+
+<div class="mb-3">
+<select name="asignacion">
+{% for asignacion in asignaciones %}
+<option value="{{ asignacion.id }}">
+{{ asignacion.curso }} - {{ asignacion.catedratico }}
+</option>
+{% endfor %}
+</select>
+</div>
+
+<div class="mb-3">
+<label>Fecha de inscripción</label>
+<input type="date" name="fecha_inscripcion" class="form-control">
+</div>
+
+
+<button class="btn btn-primary">Guardar</button>
+
+<a href="{% url 'alumno:inscripciones' %}" class="btn btn-secondary">
+Cancelar
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

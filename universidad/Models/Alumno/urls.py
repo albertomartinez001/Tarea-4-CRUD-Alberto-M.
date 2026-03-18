@@ -5,8 +5,6 @@ app_name = 'alumno'
 
 urlpatterns = [
     
-    path('', views.alumno_list, name='list'),
-
     path('nuevo/', views.alumno_create, name='create'),
 
     path('editar/<int:id>/', views.alumno_update, name='update'),
@@ -29,14 +27,18 @@ urlpatterns = [
     path('notas/editar/<int:id>/', views.nota_update, name='nota_update'),
 
     path('notas/eliminar/<int:id>/', views.nota_delete, name='nota_delete'),
-    
-    path('asignacion_cursos/', views.asignacion_list, name='asignaciones'),
 
-path('asignacion_cursos/nuevo/', views.asignacion_create, name='asignacion_create'),
+    path('asignacion_cursos/nuevo/', views.asignacion_create, name='asignacion_create'),
 
-path('asignacion_cursos/editar/<int:id>/', views.asignacion_update, name='asignacion_update'),
+    path('asignacion_cursos/editar/<int:id>/', views.asignacion_update, name='asignacion_update'),
 
-path('asignacion_cursos/eliminar/<int:id>/', views.asignacion_delete, name='asignacion_delete'),
+    path('asignacion_cursos/eliminar/<int:id>/', views.asignacion_delete, name='asignacion_delete'),
+
+    path('inscripciones/nuevo/', views.inscripcion_create, name='inscripcion_create'),
+
+    path('inscripciones/editar/<int:id>/', views.inscripcion_update, name='inscripcion_update'),
+
+    path('inscripciones/eliminar/<int:id>/', views.inscripcion_delete, name='inscripcion_delete'),
 
 
     path('', views.alumno_list, name='list'),

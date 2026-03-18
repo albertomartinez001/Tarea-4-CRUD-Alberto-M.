@@ -278,4 +278,64 @@ def asignacion_delete(request, id):
 
 def inscripcion_list(request):
     inscripciones = InscripcionAlumno.objects.all()
-    return render(request, 'alumno/inscripciones.html', {'inscripciones': inscripciones})
+
+    return render(request, 'alumno/inscripcion/list.html', {
+        'inscripciones': inscripciones
+    })
+
+
+def inscripcion_create(request):
+
+    alumnos = Alumno.objects.all()
+    asignaciones = AsignacionCurso.objects.all()
+
+    if request.method == "POST":
+
+        InscripcionAlumno.objects.create(
+            alumno_id=request.POST['alumno'],
+            asignacion_id=request.POST['asignacion'],
+            fecha_inscripcion=request.POST['fecha_inscripcion']
+        )
+
+        return redirect('alumno:inscripciones')
+
+    return render(request, 'alumno/inscripcion/create.html', {
+        'alumnos': alumnos,
+        'asignaciones': asignaciones
+    })
+
+
+def inscripcion_update(request, id):
+
+    inscripcion = get_object_or_404(InscripcionAlumno, id=id)
+
+    alumnos = Alumno.objects.all()
+    asignaciones = AsignacionCurso.objects.all()
+    
+
+    if request.method == "POST":
+
+        inscripcion.alumno_id = request.POST['alumno']
+        inscripcion.asignacion_id = request.POST['asignacion']
+        inscripcion.save()
+
+        return redirect('alumno:inscripciones')
+
+    return render(request, 'alumno/inscripcion/update.html', {
+        'inscripcion': inscripcion,
+        'alumnos': alumnos,
+        'asignaciones': asignaciones
+    })
+
+
+def inscripcion_delete(request, id):
+
+    inscripcion = get_object_or_404(InscripcionAlumno, id=id)
+
+    if request.method == "POST":
+        inscripcion.delete()
+        return redirect('alumno:inscripciones')
+
+    return render(request, 'alumno/inscripcion/delete.html', {
+        'inscripcion': inscripcion
+    })

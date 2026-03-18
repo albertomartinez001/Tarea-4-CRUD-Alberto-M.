@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h2>Editar Inscripción</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="mb-3">
+<label>Alumno</label>
+<select name="alumno" class="form-control">
+{% for alumno in alumnos %}
+<option value="{{ alumno.id }}" {% if alumno.id == inscripcion.alumno.id %}selected{% endif %}>
+{{ alumno.first_name }} {{ alumno.last_name }}
+</option>
+{% endfor %}
+</select>
+</div>
+
+<div class="mb-3">
+<select name="asignacion">
+{% for asignacion in asignaciones %}
+<option value="{{ asignacion.id }}" 
+{% if asignacion.id == inscripcion.asignacion.id %}selected{% endif %}>
+{{ asignacion.curso }} - {{ asignacion.catedratico }}
+</option>
+{% endfor %}
+</select>
+</div>
+
+
+<button class="btn btn-warning">Actualizar</button>
+
+<a href="{% url 'alumno:inscripciones' %}" class="btn btn-secondary">
+Cancelar
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

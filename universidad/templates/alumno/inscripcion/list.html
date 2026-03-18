@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<div class="d-flex justify-content-between mb-3">
+<h2>Inscripciones</h2>
+
+<a href="{% url 'alumno:inscripcion_create' %}" class="btn btn-primary">
+Nueva Inscripción
+</a>
+</div>
+
+<table class="table table-bordered">
+
+<thead>
+<tr>
+<th>Alumno</th>
+<th>Curso</th>
+<th>Acciones</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for inscripcion in inscripciones %}
+
+<tr>
+
+<td>{{ inscripcion.alumno }}</td>
+<td>{{ inscripcion.asignacion.curso }}</td>
+
+<td>
+
+<a href="{% url 'alumno:inscripcion_update' inscripcion.id %}" class="btn btn-warning btn-sm">
+Editar
+</a>
+
+<a href="{% url 'alumno:inscripcion_delete' inscripcion.id %}" class="btn btn-danger btn-sm">
+Eliminar
+</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="3">No hay inscripciones</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}
