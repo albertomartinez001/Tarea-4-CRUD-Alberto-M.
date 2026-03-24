@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Count, Avg, Max, Q, F 
 
 from .models import (
     Alumno,
@@ -339,3 +340,42 @@ def inscripcion_delete(request, id):
     return render(request, 'alumno/inscripcion/delete.html', {
         'inscripcion': inscripcion
     })
+
+
+def reporte_catedraticos(request):
+
+    catedraticos = Catedratico.objects.annotate(
+        total_cursos=Count('asignacioncurso', distinct=True),
+        total_alumnos=Count('asignacioncurso__inscripcionalumno', distinct=True),
+        promedio_notas=Avg('asignacioncurso__notas__nota')
+    )
+    return render(request, 'alumno/reporte/reporte1.html', {
+        'catedraticos': catedraticos
+    })
+
+def reporte_honor(request):
+    
+    top_promedios = Alumno.objects.annotate(
+        promedio=Avg('notas__nota')
+    ).order_by('-promedio')[:10]
+
+    top_aprobados = Alumno.objects.filter(notas__nota__gte=61).annotate(
+        cursos_aprobados=Count('notas')
+    ).order_by('-cursos_aprobados')[:5]
+
+    destacados_curso = AsignacionCurso.objects.annotate(
+        mejor_nota=Max('notas__nota')
+    ).select_related('curso')
+
+    cursos_top = AsignacionCurso.objects.annotate(
+        promedio=Avg('notas__nota')
+    ).filter(promedio__gt=85).select_related('curso')
+
+    context = {
+        'top_promedios': top_promedios,
+        'top_aprobados': top_aprobados,
+        'destacados_curso': destacados_curso,
+        'cursos_top': cursos_top,
+    }
+    
+    return render(request, 'alumno/reporte/reporte2.html', context)

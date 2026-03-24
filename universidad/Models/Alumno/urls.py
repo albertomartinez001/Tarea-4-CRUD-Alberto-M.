@@ -47,4 +47,6 @@ urlpatterns = [
     path('catedraticos/', views.catedratico_list, name='catedraticos'),
     path('asignacion_cursos/', views.asignacion_list, name='asignaciones'),
     path('inscripciones/', views.inscripcion_list, name='inscripciones'),
+    path('reporte/catedraticos/', views.reporte_catedraticos, name='reporte_catedraticos'),
+    path('reporte/cuadro-honor/', views.reporte_honor, name='reporte_honor'),
 ]

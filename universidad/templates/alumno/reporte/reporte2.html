@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>🏆 Reporte de Rendimiento Élite</h2>
+    <hr>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Top 10 Promedios</h4>
+            <ul class="list-group mb-4">
+                {% for a in top_promedios %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ a.first_name }} {{ a.last_name }}
+                    <span class="badge bg-primary rounded-pill">{{ a.promedio|floatformat:2 }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <h4>Top 5 Más Cursos Aprobados</h4>
+            <ul class="list-group mb-4">
+                {% for a in top_aprobados %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ a.first_name }} {{ a.last_name }}
+                    <span class="badge bg-success rounded-pill">{{ a.cursos_aprobados }} Cursos</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <h4>Cursos con Rendimiento Superior (>85)</h4>
+        <div class="col-12">
+            <table class="table table-hover">
+                <thead class="table-info">
+                    <tr><th>Curso</th><th>Promedio</th></tr>
+                </thead>
+                <tbody>
+                    {% for curso in cursos_top %}
+                    <tr>
+                        <td>{{ curso.curso.nombre }}</td>
+                        <td>{{ curso.promedio|floatformat:2 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="2">No hay cursos con promedio mayor a 85 aún.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
