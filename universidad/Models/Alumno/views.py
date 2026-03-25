@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, Avg, Max, Q, F 
+from django.core.paginator import Paginator
 
 from .models import (
     Alumno,
@@ -13,12 +14,17 @@ from .models import (
 def alumno_list(request):
 
     alumnos = Alumno.objects.all()
+
+    paginator = Paginator(alumnos, 100)  # yo elegi mostrar por grupos de 100 registros 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(
         request,
         'alumno/alumno/list.html',
-        {'alumnos': alumnos}
+        {'page_obj': page_obj}
     )
-    
+
 def alumno_create(request):
 
     if request.method == "POST":
